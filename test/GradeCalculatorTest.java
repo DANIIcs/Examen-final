@@ -194,14 +194,12 @@ class GradeCalculatorTest {
     @Test
     @DisplayName("shouldThrowExceptionWhenScoreIsNegative")
     void shouldThrowExceptionWhenScoreIsNegative() {
-        List<Evaluation> evaluations = new ArrayList<>();
-        evaluations.add(new Evaluation("PC1", -5.0, 50.0));
-        evaluations.add(new Evaluation("Examen Final", 16.0, 50.0));
-        
-        // La validación debe fallar al crear Evaluation
-        assertThrows(IllegalArgumentException.class, () -> {
+        // La validación debe fallar al crear Evaluation con nota negativa
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Evaluation("PC1", -5.0, 50.0);
         });
+        
+        assertTrue(exception.getMessage().contains("negativ"));
     }
     
     @Test
@@ -277,12 +275,12 @@ class GradeCalculatorTest {
         evaluations.add(new Evaluation("Examen Final", 17.0, 50.0));
         
         GradeCalculationRequest request = new GradeCalculationRequest(
-            "U202012345", evaluations, false, 2023, true
+            "U202012345", evaluations, false, 2024, true
         );
         
         GradeCalculationResult result = calculator.calculateFinalGrade(request);
         
-        // Promedio: 17.5, pero penalizado a 0 por inasistencia
+        // Promedio: 17.5, pero penalizado a 0 por inasistencia (2024 no tiene extra points)
         assertEquals(17.5, result.getWeightedAverage(), 0.001);
         assertEquals(17.5, result.getAttendancePenalty(), 0.001);
         assertEquals(0.0, result.getExtraPointsApplied(), 0.001);

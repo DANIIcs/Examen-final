@@ -45,4 +45,44 @@ class AttendancePolicyTest {
         
         assertEquals(15.5, penalty, 0.001);
     }
+    
+    @Test
+    @DisplayName("shouldHandleHighGrades")
+    void shouldHandleHighGrades() {
+        double result = policy.applyPenalty(18.5, false);
+        assertEquals(0.0, result, 0.001);
+        
+        double penalty = policy.getPenaltyAmount(18.5, false);
+        assertEquals(18.5, penalty, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldHandleLowGrades")
+    void shouldHandleLowGrades() {
+        double result = policy.applyPenalty(5.0, false);
+        assertEquals(0.0, result, 0.001);
+        
+        double penalty = policy.getPenaltyAmount(5.0, false);
+        assertEquals(5.0, penalty, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldHandleZeroGrade")
+    void shouldHandleZeroGrade() {
+        double result = policy.applyPenalty(0.0, false);
+        assertEquals(0.0, result, 0.001);
+        
+        double penalty = policy.getPenaltyAmount(0.0, false);
+        assertEquals(0.0, penalty, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldHandleMaximumGrade")
+    void shouldHandleMaximumGrade() {
+        double result = policy.applyPenalty(20.0, true);
+        assertEquals(20.0, result, 0.001);
+        
+        double penalty = policy.getPenaltyAmount(20.0, true);
+        assertEquals(0.0, penalty, 0.001);
+    }
 }

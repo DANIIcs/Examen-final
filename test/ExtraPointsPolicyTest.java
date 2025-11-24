@@ -85,4 +85,52 @@ class ExtraPointsPolicyTest {
         double amount = policy.getExtraPointsAmount(15.0, 16.0);
         assertEquals(1.0, amount, 0.001);
     }
+    
+    @Test
+    @DisplayName("shouldHandleLowGradesWithExtraPoints")
+    void shouldHandleLowGradesWithExtraPoints() {
+        double result = policy.applyExtraPoints(5.0, 2023, true, 20.0);
+        assertEquals(6.0, result, 0.001);
+        
+        double extraPoints = policy.getExtraPointsAmount(5.0, result);
+        assertEquals(1.0, extraPoints, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldHandleZeroGradeWithExtraPoints")
+    void shouldHandleZeroGradeWithExtraPoints() {
+        double result = policy.applyExtraPoints(0.0, 2023, true, 20.0);
+        assertEquals(1.0, result, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldNotApplyExtraPointsToZeroWhenCriteriaNotMet")
+    void shouldNotApplyExtraPointsToZeroWhenCriteriaNotMet() {
+        double result = policy.applyExtraPoints(0.0, 2023, false, 20.0);
+        assertEquals(0.0, result, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldHandleUnknownYear")
+    void shouldHandleUnknownYear() {
+        double result = policy.applyExtraPoints(15.0, 2030, true, 20.0);
+        assertEquals(15.0, result, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldReturnZeroExtraPointsWhenNoChange")
+    void shouldReturnZeroExtraPointsWhenNoChange() {
+        double extraPoints = policy.getExtraPointsAmount(15.0, 15.0);
+        assertEquals(0.0, extraPoints, 0.001);
+    }
+    
+    @Test
+    @DisplayName("shouldRespectMaxGradeBoundary")
+    void shouldRespectMaxGradeBoundary() {
+        double result = policy.applyExtraPoints(19.5, 2023, true, 20.0);
+        assertEquals(20.0, result, 0.001);
+        
+        double extraPoints = policy.getExtraPointsAmount(19.5, result);
+        assertEquals(0.5, extraPoints, 0.001);
+    }
 }
