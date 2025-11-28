@@ -2,6 +2,16 @@
 
 Sistema de cálculo de nota final para estudiantes de UTEC.
 
+
+
+## Resultados de calidad y análisis SonarQube
+
+### Calidad requerida
+![Calidad requerida](quality.png)
+
+### Resultado del alumno en SonarQube
+![Resultado SonarQube](sonnar.png)
+
 ## Descripción
 
 Implementa el cálculo de notas finales considerando evaluaciones ponderadas, asistencia mínima y políticas de puntos extra según año académico.
@@ -85,3 +95,6 @@ Noviembre 2025
 - Interfaz gráfica (GUI)
 - API REST para integración con otros sistemas
 - Logging y auditoría de cálculos
+
+
+
