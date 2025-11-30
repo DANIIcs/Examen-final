@@ -6,11 +6,11 @@ Sistema de cálculo de nota final para estudiantes de UTEC.
 
 ## Resultados de calidad y análisis SonarQube
 
-### Calidad requerida
-![Calidad requerida](quality.png)
+### Requerido
+![Calidad requerida](sonnar.png)
 
 ### Resultado del alumno en SonarQube
-![Resultado SonarQube](sonnar.png)
+![Resultado SonarQube](quality.png)
 
 ## Descripción
 
